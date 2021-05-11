@@ -1,11 +1,12 @@
-require('dotenv').config();
 const express = require('express');
-const app = express();
-const port = process.env.PORT || 3000;
 
-app.use(express.json());
+/**
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
 
-app.get('/users', (req, res) => {
+const getAllUser = (req, res) => {
     const user = [
         {
             id:1,
@@ -17,9 +18,14 @@ app.get('/users', (req, res) => {
         },
     ]
     res.json(user);
-});
+};
 
-app.post('/users/:id', (req, res) => {
+/**
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
+const createUser = (req, res) => {
     
     const user = req.body;
 
@@ -30,9 +36,14 @@ app.post('/users/:id', (req, res) => {
         user
     }
     res.status(201).json(result);
-});
+};
 
-app.put('/users/:id', (req, res) => {
+/**
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
+const updateAllUser = (req, res) => {
     
     const { id } = req.params;
     const user = req.body;
@@ -44,9 +55,14 @@ app.put('/users/:id', (req, res) => {
         user
     }
     res.json(result);
-});
+};
 
-app.patch('/users/:id', (req, res) => {
+/**
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
+const updatePartierUser = (req, res) => {
     
     const { id } = req.params;
     const user = req.body;
@@ -54,21 +70,30 @@ app.patch('/users/:id', (req, res) => {
     user.id = id;
 
     const result = {
-        message: 'user update',
+        message: 'user update with patch',
         user
     }
     res.json(result);
-});
+};
 
-app.delete('/users/:id', (req, res) => {
+/**
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
+const deleteUser = (req, res) => {
     
     const { id } = req.params;
     const result = {
         message: `user with id: ${id} deleted`
     }
     res.json(result);
-});
- 
-app.listen(port, () =>{
-    console.log(`app started in port ${port}`);
-});
+};
+
+module.exports = {
+    getAllUser,
+    createUser,
+    deleteUser,
+    updateAllUser,
+    updatePartierUser    
+}
